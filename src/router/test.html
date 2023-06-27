@@ -1,0 +1,15 @@
+insert into orders (address, zip_code, city, name, id, client_id, created_at)
+value ('123 Main St', '10001', 'New York', 'Emily Williams',
+uuid_generate_v4(),uuid_generate_v4(), NOW()- INTERVAL '1 day') , ('405 2nd
+Ave', '10010', 'San Francisco', 'John Smith',
+uuid_generate_v4(),uuid_generate_v4(), NOW()- INTERVAL '2 day') , ('1 Broadway',
+'10007', 'Austin', 'Jane Doe', uuid_generate_v4(),uuid_generate_v4(), NOW()-
+INTERVAL '3 day'), ('3 Park Ave', '10016', 'New York', 'John Doe',
+uuid_generate_v4(),uuid_generate_v4(), NOW()- INTERVAL '4 day'), ('2 5th Ave',
+'10011', 'Portland', 'Emily Smith', uuid_generate_v4(),uuid_generate_v4(),
+NOW()- INTERVAL '5 day'), ('1 1st Ave', '10003', 'San Francisco', 'John
+Williams', uuid_generate_v4(),uuid_generate_v4(), NOW()- INTERVAL '6 day'), ('2
+2nd Ave', '10004', 'Des Moines', 'Jane Williams',
+uuid_generate_v4(),uuid_generate_v4(), NOW()- INTERVAL '7 day'), ('3 3rd Ave',
+'10005', 'New York', 'Emily Doe', uuid_generate_v4(),uuid_generate_v4(), NOW()-
+INTERVAL '8 day'));
