@@ -11,90 +11,77 @@ interface Order {
   price: number;
   address: string;
   city: string;
-  zip_code: string;
+  zip: string;
 }
 
 const orders = ref<Order[]>([]);
 
-const pagination = ref(9);
+const pagination = ref(6);
 
-// const insertOrder = async () => {
-//   try {
-//     const { data, error } = await supabase
-//       .from('orders')
-//       .insert(
-//         {
-//           address: '123 Main St',
-//           zip_code: '10001',
-//           city: 'New York',
-//           name: 'Emily Williams',
-//           client_id: 'afe8c2a3-3d38-4c0b-afca-23ce643d50f9',
-//           price: 12
-//         }
-//       )
+const insertOrder = async () => {
+  try {
+    const { data, error } = await supabase.from("orders").insert({
+      address: "123 Main St",
+      zip: "10001",
+      city: "New York",
+      name: "Emily Williams",
+      client_id: "afe8c2a3-3d38-4c0b-afca-23ce643d50f9",
+      price: 12,
+    });
 
-//     if (data) {
-//       console.log(data)
-//     }
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
+    if (data) {
+      console.log(data);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// const fetchOrdersFromEmilyWilliams = async () => {
-//   try {
-//     const { data: orders, error } = await supabase
-//       .from('orders')
-//       .select('*')
-//       .eq('name', 'Emily Williams')
-//     // .insert(
-//     //   {
-//     //     address: '123 Main St',
-//     //     zip_code: '10001',
-//     //     city: 'New York',
-//     //     name: 'Emily Williams',
-//     //     client_id: 'afe8c2a3-3d38-4c0b-afca-23ce643d50f9',
-//     //     price: 12
-//     //   }
-//     // )
+const fetchOrdersFromEmilyWilliams = async () => {
+  try {
+    const { data: orders, error } = await supabase
+      .from("orders")
+      .select("*")
+      .eq("name", "Emily Williams");
 
-//     if (orders) {
-//       console.log(orders)
-//     }
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
+    if (orders) {
+      console.log(orders);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+//fetchOrdersFromEmilyWilliams();
 
-// const updateEmilyWilliamOrder = async () => {
-//   try {
-//     const { data, error } = await supabase
-//       .from('orders')
-//       .update({ price: '200' })
-//       .eq('id', "303f6f57-0929-4d91-b0b8-1a3f0513e993")
+const updateEmilyWilliamOrder = async () => {
+  try {
+    const { data, error } = await supabase
+      .from("orders")
+      .update({ price: "200" })
+      .eq("id", "a6b7126a-92ce-4b87-aafe-37df930e5c32");
 
-//     if (data) {
-//       console.log(data)
-//     }
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
+    if (data) {
+      console.log(data);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// const deleteEmilyWilliamOrder = async () => {
-//   try {
-//     const { data, error } = await supabase
-//       .from('orders')
-//       .delete()
-//       .eq('id', "303f6f57-0929-4d91-b0b8-1a3f0513e993")
+const deleteEmilyWilliamOrder = async () => {
+  try {
+    const { data, error } = await supabase
+      .from("orders")
+      .delete()
+      .eq("id", "c6869cf7-557b-4390-8f84-3ffb997df98a");
 
-//     if (data) {
-//       console.log(data)
-//     }
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
+    if (data) {
+      console.log(data);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // const channel = supabase
 //   .channel('my_new_channel_for_order')
@@ -122,17 +109,13 @@ const pagination = ref(9);
 
 const fetchOrders = async () => {
   try {
-    const { data, error } = await supabase.from("orders").select(`
-         *,
-         clients (
-           *
-         )
-       `);
+    let { data: orders, error } = await supabase
+      .from("orders")
+      .select("*")
+      .eq("name", "testOne");
 
-    if (data) {
-      console.log(data);
-      orders.value = data;
-      await incrementViews();
+    if (orders) {
+      console.log(orders);
     }
   } catch (error) {
     console.log(error);
@@ -155,7 +138,7 @@ const fetchOrders = async () => {
 //   }
 // }
 
-// fetchOrders();
+fetchOrders();
 </script>
 
 <template>
@@ -168,12 +151,28 @@ const fetchOrders = async () => {
           class="grid grid-cols-5 gap-3 px-3 py-2 my-2 border rounded-lg shadow-md"
         >
           <div v-if="order.name">{{ order.name }}</div>
+
           <div>${{ order.price || 0 }}</div>
+
           <div v-if="order.address">{{ order.address }}</div>
+
           <div v-if="order.zip_code">{{ order.zip_code }}</div>
+
           <div v-if="order.city">{{ order.city }}</div>
         </div>
       </div>
+    </div>
+
+    <div class="px-2 my-8">
+      <button class="block btn btn-primary" @click="insertOrder">
+        insert Orders
+      </button>
+      <button class="block btn btn-primary" @click="updateEmilyWilliamOrder">
+        update EmilyWilliamOrder
+      </button>
+      <button class="block btn btn-primary" @click="deleteEmilyWilliamOrder">
+        delete EmilyWilliamOrder
+      </button>
     </div>
   </main>
 </template>
