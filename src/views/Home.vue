@@ -16,7 +16,7 @@ interface Order {
 
 const orders = ref<Order[]>([]);
 
-const pagination = ref(6);
+const pagination = ref(10);
 
 const insertOrder = async () => {
   try {
@@ -83,45 +83,42 @@ const deleteEmilyWilliamOrder = async () => {
   }
 };
 
-// const channel = supabase
-//   .channel('my_new_channel_for_order')
-//   .on(
-//     'postgres_changes',
-//     {
-//       event: '*',
-//       schema: 'public',
-//       table: 'orders'
-//     },
-//     (event) => {
-//       const { new: newOrder } = event;
-//       orders.value = orders.value.map(order => {
-//         if (order.id === newOrder.id) {
-//           return {
-//             ...order,
-//             ...newOrder
-//           }
-//         }
-//         return order
-//       })
-//     }
-//   )
-//   .subscribe()
+const channel = supabase
+  .channel("my_new_channel_for_order")
+  .on(
+    "postgres_changes",
+    {
+      event: "*",
+      schema: "public",
+      table: "orders",
+    },
+    (event) => {
+      const { new: newOrder } = event;
+      orders.value = orders.value.map((order) => {
+        if (order.id === newOrder.id) {
+          return {
+            ...order,
+            ...newOrder,
+          };
+        }
+        return order;
+      });
+    }
+  )
+  .subscribe();
 
 const fetchOrders = async () => {
   try {
-    let { data: orders, error } = await supabase
-      .from("orders")
-      .select("*")
-      .eq("name", "testOne");
+    let { data, error } = await supabase.from("orders").select("*");
 
-    if (orders) {
-      console.log(orders);
+    if (data) {
+      orders.value = data;
     }
   } catch (error) {
     console.log(error);
   }
 };
-
+fetchOrders();
 // const incrementViews = async () => {
 //   try {
 //     const { data, error } = await supabase.rpc('increment', {
@@ -162,8 +159,11 @@ fetchOrders();
         </div>
       </div>
     </div>
+  </main>
+</template>
 
-    <div class="px-2 my-8">
+<!-- Comment 
+<div class="px-2 my-8">
       <button class="block btn btn-primary" @click="insertOrder">
         insert Orders
       </button>
@@ -174,5 +174,4 @@ fetchOrders();
         delete EmilyWilliamOrder
       </button>
     </div>
-  </main>
-</template>
+-->
