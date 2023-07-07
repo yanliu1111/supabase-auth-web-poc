@@ -16,7 +16,7 @@ interface Order {
 
 const orders = ref<Order[]>([]);
 
-const pagination = ref(10);
+const pagination = ref(20);
 
 const insertOrder = async () => {
   try {
@@ -83,6 +83,7 @@ const deleteEmilyWilliamOrder = async () => {
   }
 };
 
+//subsciptions the lastest messages coming from the database
 const channel = supabase
   .channel("my_new_channel_for_order")
   .on(
@@ -96,10 +97,7 @@ const channel = supabase
       const { new: newOrder } = event;
       orders.value = orders.value.map((order) => {
         if (order.id === newOrder.id) {
-          return {
-            ...order,
-            ...newOrder,
-          };
+          return { ...order, ...newOrder };
         }
         return order;
       });
