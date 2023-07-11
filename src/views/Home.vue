@@ -16,6 +16,8 @@ interface Order {
 
 const orders = ref<Order[]>([]);
 
+const orders2 = ref<Order[]>([]);
+
 const pagination = ref(20);
 
 const insertOrder = async () => {
@@ -107,16 +109,21 @@ const channel = supabase
 
 const fetchOrders = async () => {
   try {
-    let { data, error } = await supabase.from("orders").select("*");
+    const { data, error } = await supabase.from("orders2").select(`
+         *,
+         clients2 (
+           *
+         )
+       `);
 
     if (data) {
-      orders.value = data;
+      console.log(data);
     }
   } catch (error) {
     console.log(error);
   }
 };
-fetchOrders();
+
 // const incrementViews = async () => {
 //   try {
 //     const { data, error } = await supabase.rpc('increment', {
