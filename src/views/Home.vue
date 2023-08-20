@@ -124,21 +124,20 @@ const fetchOrders = async () => {
   }
 };
 
-// const incrementViews = async () => {
-//   try {
-//     const { data, error } = await supabase.rpc('increment', {
-//       row_id: 'e1f3321e-3949-4ec1-afb8-65cbe3846648'
-//     })
+const incrementViews = async () => {
+  try {
+    const { data, error } = await supabase.rpc("increment", {
+      row_id: "1f8d7ef3-be05-47cc-b933-b2594357d66b",
+    });
 
-//     if (data) {
-//       console.log("success")
-//       console.log(data)
-//     }
-
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
+    if (data) {
+      console.log("success");
+      console.log(data);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 fetchOrders();
 </script>
