@@ -6,27 +6,28 @@ Learn how to use Supabase in this full course for beginners. Supabase is an open
 
 ## 💚 Tutorial Sections
 
-1. Create a project in Supabase
-2. Tables
-3. RLS (Row Level Security)
-4. Authentication
-5. User management
-6. Recover password
-7. E-mails templates
-8. URL Configuration
-9. Read, insert or delete
-10. Subscriptions
-11. Relations
-12. Functions
-13. Triggers
-14. Schemas
-15. Storage
-16. Logs
-17. Extensions
-18. Realtime
-19. Edge-functions
-20. Webhooks
-21. Self-host or Local dev
+✅1. Create a project in Supabase <br>
+✅2. Tables<br>
+✅3. RLS (Row Level Security)<br>
+✅4. Authentication<br>
+✅5. User management<br>
+✅6. Recover password<br>
+✅7. E-mails templates<br>
+✅8. URL Configuration<br>
+✅9. Read, insert or delete<br>
+✅10. Subscriptions<br>
+✅11. Relations<br>
+✅12. Functions<br>
+✅13. Triggers<br>
+✅14. Schemas<br>
+✅15. Storage<br>
+✅16. Logs<br>
+
+17. Extensions<br>
+18. Realtime<br>
+19. Edge-functions<br>
+20. Webhooks<br>
+21. Self-host or Local dev<br>
 
 ## 💜 Project Setup
 
