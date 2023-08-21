@@ -109,12 +109,12 @@ const channel = supabase
 
 const fetchOrders = async () => {
   try {
-    const { data, error } = await supabase.from("orders2").select(`
-         *,
-         clients2 (
-           *
-         )
-       `);
+    const { data, error } = await supabase.from("orders2").select(
+      `*,
+      clients2(* 
+        )
+      `
+    );
 
     if (data) {
       console.log(data);
